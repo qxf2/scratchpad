@@ -8,7 +8,7 @@ import random
 import sys 
 import time 
 
-TIME_PER_PERSON = 120
+TIME_PER_PERSON = 120 #in seconds
 EMPLOYEES = ['arun',\
     'raji',
     'avinash',
