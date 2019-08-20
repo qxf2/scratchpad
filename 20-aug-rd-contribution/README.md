@@ -74,9 +74,13 @@ The second part of this discussion will be me discussing the ideas with everyone
 7. [DO] Give an advice council for each person on a client 
 8. [??] Regular tutorials 
 9. [??] Time management tips and regular reminders
+10. [??] Merge R&D's top-10 and ideas+problems boards
+
 
 ## Unsolved problems:
 
 >> Figure out better starting points
+
 >> When on client, we have very little idea of what happens on R&D
+
 >> Friction to do R&D when on a client (easy/small/finsihable)
