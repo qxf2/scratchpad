@@ -24,7 +24,8 @@ EMPLOYEES = ['arun',\
     'sravanti',
     'akkul',
     'kiran',
-    'shrihari']
+    'shrihari',
+    'rahul']
 
 def run_countdown_timer(max_time):
     "Create a simple countdown timer"
