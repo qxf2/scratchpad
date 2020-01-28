@@ -1,4 +1,5 @@
 This session was to show the following:
+
 a) how to approach a problem that needs new tooling
 b) how to use PyGithub to find the stars in a project
 
@@ -20,6 +21,7 @@ _a) Search for how people have already solved your problem_
 * PyGitHub: https://github.com/PyGithub/PyGithub
 
 _b) Which is popular?_
+
 Look at
 * Stars
 * Contributors
@@ -28,12 +30,15 @@ Look at
 * Number of commits
 
 _c) Which is easy to start?_
+
 Spend no more than 2-3 minutes per repo
 
 _d) A real problem_
+
 Lets count stars
 
 _e) Breakdown and re-apply the meta_ 
+
     -> cloning repo
     -> install
     > search for the ??
@@ -46,9 +51,11 @@ _e) Breakdown and re-apply the meta_
     -> expected output 
 
 _f) Summarize (1-liner,5-liner,para)_
+
 Spend 15-minutes at least! This is where you learn to make connections and figure out what you need to dive in deeper.
 
 _g) New ideas_
+
     > credentials getting exposed - periodic audit
     > number of contributors .... targeted analysis
     > how frequently a project is being updated 
@@ -56,6 +63,7 @@ _g) New ideas_
     > automatic commits and decommits 
 
 _h) Deeper background_
+
     > Github APIs
 
 _i) Revisit occasionally_
