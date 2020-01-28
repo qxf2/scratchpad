@@ -1,6 +1,7 @@
 This session was to show the following:
 
 a) how to approach a problem that needs new tooling
+
 b) how to use PyGithub to find the stars in a project
 
 ### SETUP
