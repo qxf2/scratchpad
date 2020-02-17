@@ -43,10 +43,17 @@ Raj:
 
 
 Day 6 - Remote habits (Arun)
+
 Day 11 - Summarize well (Smitha)
+
 Day 22 - Writing code, breaking down (Annapoorani)
+
 Day 23 - Introduction to R&D (Avinash)
+
 Day 13 - Write - publish a post (Arun)
+
 Day 16 - Test Strategy (Prospecting - Avinash)
+
 Day 18 - What to do on a Client (Raji)
+
 Day 8 - History of Qxf2 (Arun)
