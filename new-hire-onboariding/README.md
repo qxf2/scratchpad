@@ -29,7 +29,7 @@ Preedhi:
 Kiran:
 1. Tickets had instructions. Applying learned concept reinforces right track.
 2. If I take too much time, or ask the wrong questions, depends on the answers. 
-3. Overwhelmed. In short span of time, I had to learn a lot. 
+3. Overwhelmed with satisfaction. In short span of time, I was able to learn a lot and get good exposure with different tech. 
 
 Akkul:
 1. If I was able to complete the tickets in a given time. Some tickets have time mentioned. Apply inter-related knowledge. Weekly demos. 
