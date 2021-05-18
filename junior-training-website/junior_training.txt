@@ -1,0 +1,127 @@
+Website
+
+Qxf2 Training
+    * Landing page
+        > Headlines:
+            - Fed up with classroom training?
+            - [SELECTED] No more classroom training!
+                Hands on training with real applications. Learn to test software, get familiar with modern tools and work with emerging technologies.
+                    $ Modern tools
+                    $ Emerging technologies
+                ... Hands on software testing training with real applications
+            - Land a software testing job
+                ... A unique QA training program
+                ... A hands on training program
+                ... Hands on training with real applications
+                ... Hands on training with real applications and emerging technologies
+                ... Learn software testing by testing a real application
+            - Hands on training with a real application
+            - Software testing training with emerging technologies
+            - Start your career in software testing
+                ... Hands on training with real applications
+                ... Hands on training with real applications and emerging technologies
+            - Welcome to a career in software testing
+            - Unique QA training program for freshers
+            - Become a software tester
+            - Want to become a software tester?
+            - Are you keen on a career in testing?
+            - Explore a career in software testing
+            - Get a career in software testing
+            - Get a job in software testing
+            - Learn software testing
+            - Online software testing training program
+            - Train yourself in software testing
+        > End of training program
+            - Certificate of training completion
+    * Benefits
+        Why join?
+        > How to test software
+        > Hands on testing experience
+        > Test real applications
+        > Participate in Agile rituals
+        > Interact with real testers
+        > Tools for testing
+            - GitHub Actions
+            - JavaScript and Python
+            - Test automation -> Selenium, Appium, BrowserStack, API, postman
+            - Test reporting tools - reportportal
+            - Test case management tools
+            - git, GitHub
+            - Jira
+        > Interview training
+        > Resume reviews
+        > Weekly talks (better phrasing needed here)
+        > Open source contribution
+    * Why us?
+        > Professional testers teach you
+        > No spoonfeeding
+        > Practical ... not theoretical
+        > No school like approach
+        > No syllabus or book knowledge
+        > Real application
+    * Program Details
+        > 3-months
+        > 9-hours/day
+        > 5 days a week
+        > Fully remote
+        > Pricing
+    * Eligbility criteria
+        > Fast pace - not for everyone
+        > Should have done a project outside of college
+        > Should have a GitHub profile or a hardware project video
+        > 2021 pass outs
+    * About us
+        > Qxf2 Services
+    * Before you apply!
+        > Fully remote
+        > Not for everyone
+        > Fast pace - we will not wait for you
+        > No placement guarantee
+        > No money back
+    * Apply here
+        > Form checking eligibility
+
+
+LinkedIn ad
+    > Keep a form ready
+Interviews
+    > 2 rounds
+
+Add a message in the console log to say "Find a bug and the course price is free"
+
+https://www.jqueryscript.net/demo/jQuery-Plugin-For-Vertical-Fullpage-Scrolling-Smart-Scroll/#section-1
+
+-------------
+FORM DETAILS:
+-------------
+1. Name
+2. Email
+3. Education (college, course, year of pass out, branch)
+4. A little bit about yourself
+5. Have you done any projects outside of college?
+    > What projects have you done outside of college?
+6. Hardware or software radio button
+    > (if software) GitHub profile
+    > (if hardware) Link to a Video of a working hardware project
+7. LinkedIn profile
+8. What do you know about testing?
+9. Would you like to start your career in software testing?
+10. Level of programming (beginner, ..., expert)
+    > What languages do you code in?
+11. How did you find out about us?
+12. What are you looking for from this program?
+13. What are your technical interests?
+14. Do you understand that:
+    > fully remote
+    > not for everyone
+    > fast paced
+    > no placement guarantee
+    > no money back
+** Add a message in the console log to say "Find a bug and the course price is free"
+    > Bug = Make all fields mandatory, but what do you know about testing can be left empty
+
+Thanks you text - with next steps
+    > We will evaluate your responses and get back to you in 10 business days
+    > If your are selected you will have to go through two rounds of interviews
+
+Reject email - we are looking for someone more hands on
