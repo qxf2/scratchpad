@@ -1,2 +1,3 @@
-API_KEY = "M1croservicesFrameworkTester!"
-channel_id = "19:1941d15dada14943b5d742f2acdb99aa@thread.skype"
+"Add your API key and channel ID here"
+API_KEY = ""
+channel_id = ""
