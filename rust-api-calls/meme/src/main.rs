@@ -5,6 +5,28 @@ URL: https://api.imgflip.com/get_memes
 */
 use std::error::Error;
 use reqwest::Client;
+use serde::Deserialize;
+
+#[derive(Deserialize, Debug)]
+struct Meme{
+    id: String,
+    name: String,
+    url: String,
+    width: i32,
+    height: i32,
+    captions: u8
+}
+
+#[derive(Deserialize, Debug)]
+struct Memes{
+    memes: Vec<Meme>
+}
+
+#[derive(Deserialize, Debug)]
+struct GetMemes{
+    success: bool,
+    data: Memes
+}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>>{
@@ -15,8 +37,14 @@ async fn main() -> Result<(), Box<dyn Error>>{
                     .get(format!("{}{}",base_url, endpoint))
                     .send()
                     .await?
-                    .text()
+                    .json::<GetMemes>()
                     .await;
-    println!("{:?}", response);
+    let all_memes = match response{
+        Ok(val) => val.data,
+        _ => panic!("Error! I did not get a JSON value from /get_memes")
+    };
+    for meme in all_memes.memes{
+        println!("{:?}:{:?}",meme.name,meme.url);
+    }
     Ok(())
 }
