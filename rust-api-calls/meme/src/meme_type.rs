@@ -7,19 +7,36 @@ use reqwest::{Response};
 
 #[derive(Deserialize, Debug)]
 pub struct Meme {
-    pub id: String,
-    pub name: String,
-    pub url: String,
+    id: String,
+    name: String,
+    url: String,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct Memes {
-    pub memes: Vec<Meme>,
+    memes: Vec<Meme>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct GetMemes {
     pub data: Memes,
+}
+
+impl Meme{
+    pub fn print(&self){
+        println!("{},{},{}", self.name, self.id, self.url);
+    }
+}
+
+impl Memes {
+    pub fn length(&self) -> usize{
+        self.memes.len()
+    }
+
+    pub fn all_memes(&self) -> &Vec<Meme>{
+        &self.memes
+    }
+
 }
 
 pub fn get_empty_memes() -> Memes{
