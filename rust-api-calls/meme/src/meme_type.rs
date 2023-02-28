@@ -2,13 +2,8 @@
 The meme struct and associated structs and methods
 */
 use serde::{Deserialize, Serialize};
-// from serde import Deserilize, Serialize
 use reqwest::{Response};
 
-trait Content<T> {
-    fn new(&self) -> T {
-    }
-}
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Meme {
@@ -27,9 +22,6 @@ pub struct GetMemes {
     pub data: Memes,
 }
 
-impl GetMemes{
-    fn new
-}
 
 impl Meme{
     pub fn print(&self){
@@ -68,6 +60,57 @@ mod tests{
     use super::*;
     use serde_json;
 
+    trait TestData<T> {
+        fn single() -> T;
+        fn multiple(num: u32) -> Vec<T>;
+    }
+
+    impl TestData<Meme> for Meme{
+        fn single() -> Meme{
+            return Meme{id: String::from("1"),
+                    name: String::from("Qxf2"),
+                    url: String::from("https://qxf2.com")}
+        }
+        fn multiple(num: u32) -> Vec<Meme>{
+            let mut meme_array = vec!();
+            for i in 0..num{
+                meme_array.push(
+                    Meme{id: String::from(i.to_string()),
+                        name: format!("{} {}",String::from("Qxf2"),i.to_string())
+                        url: format!("{}/{}",String::from("https://qxf2.com"),i.to_string())
+                    })
+                }
+            }
+            return meme_array
+        }
+    }
+
+    impl TestData<Memes> for Memes{
+        fn single() -> Memes{
+            return Memes{
+                    memes: vec!(Meme::single())
+                }
+        }
+
+        fn multiple(num: u32) -> Vec<Memes>{
+            return vec!(Memes::single())
+        }
+    }
+
+    impl TestData<GetMemes> for GetMemes{
+        fn single() -> GetMemes{
+            return GetMemes{
+                data: Memes::single()
+             }
+        }
+
+        fn multiple(num: u32) -> Vec<GetMemes>{
+            return vec!(GetMemes::single())
+        }
+    }
+
+
+
     #[test]
     fn test_get_empty_memes(){
         let my_memes = get_empty_memes();
@@ -101,21 +144,10 @@ mod tests{
     #[tokio::test]
     async fn test_parse_memes_json_valid(){
         use http::response::Builder;
-        let meme = Meme{
-            id: String::from("64"),
-            name: String::from("Surprised Rock"),
-            url: String::from("https://qxf2.com")
-        }; 
-        let memes: Memes = Memes{
-            memes: vec!(meme)
-        };
-        let json_data: GetMemes = GetMemes{
-            data: memes
-         };
- 
+        let data = GetMemes::single();
         
         // Serialize the GetMemes struct
-        let meme_data_json = serde_json::to_string(&json_data).unwrap();
+        let meme_data_json = serde_json::to_string(&data).unwrap();
         println!("The Meme Data JSON is {:?}", meme_data_json);
     
         let my_response = Builder::new()
@@ -127,46 +159,3 @@ mod tests{
         assert_eq!(1, parsed_json.length())
     }
     }
-
-// Add a trait for the structs defined based on the following example
-/*
-pub trait Content {
-    fn get_test_data() -> Self;
-}
-
-#[derive(Debug)]
-pub struct Meme {
-    pub id: String,
-    pub name: String,
-    pub url: String,
-}
-
-#[derive(Debug)]
-pub struct Memes {
-    memes: Vec<Meme>,
-}
-
-
-impl Content for Meme{
-    fn get_test_data() -> Meme{
-        return Meme{id: String::from("1"),
-                    name: String::from("Qxf2"),
-                    url: String::from("https://qxf2.com")}
-    }
-}
-
-impl Content for Memes{
-    fn get_test_data() -> Memes{
-        return Memes{
-            memes: vec!(Meme::get_test_data())
-        }
-    }
-}
-
-fn main(){
-    let test_meme_data = Meme::get_test_data();
-    println!("The Meme is {:?}", test_meme_data);
-    let memes = Memes::get_test_data();
-    println!("The Meme is {:?}", memes);
-}
- */

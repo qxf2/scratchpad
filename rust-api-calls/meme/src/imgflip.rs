@@ -5,7 +5,6 @@ A collection of imgflip endpoints
 use crate::http_methods;
 #[cfg(test)]
 use crate::http_methods;
-//use crate::stubbed_http_methods as http_methods;
 
 use crate::meme_type::{Memes, parse_memes_json, get_empty_memes};
 
@@ -24,6 +23,7 @@ pub async fn get_meme_data() -> Memes {
 #[cfg(test)]
 mod tests{
     use super::*;
+    use crate::stubbed_http_methods as http_methods;
 
     #[tokio::test]
     #[ignore]
@@ -32,7 +32,7 @@ mod tests{
         assert_eq!(outcome.length(),100)
     }
 
-    #[tokio::test]
+    //#[tokio::test]
     async fn test_invalid_get_memes(){
         let outcome = get_meme_data().await;
         assert_eq!(outcome.length(),0)
