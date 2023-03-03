@@ -76,13 +76,12 @@ mod tests{
             for i in 0..num{
                 meme_array.push(
                     Meme{id: String::from(i.to_string()),
-                        name: format!("{} {}",String::from("Qxf2"),i.to_string())
+                        name: format!("{} {}",String::from("Qxf2"),i.to_string()),
                         url: format!("{}/{}",String::from("https://qxf2.com"),i.to_string())
                     })
                 }
-            }
             return meme_array
-        }
+            }
     }
 
     impl TestData<Memes> for Memes{
@@ -93,7 +92,11 @@ mod tests{
         }
 
         fn multiple(num: u32) -> Vec<Memes>{
-            return vec!(Memes::single())
+            let memes: Vec<Memes> = vec!(Memes{
+                memes: Meme::multiple(num)
+            });
+            
+            return memes
         }
     }
 
@@ -129,6 +132,17 @@ mod tests{
         assert_eq!(my_memes.length(), 1, "Expected length to be one but got {}", my_memes.length())
     }
 
+    #[test]
+    fn test_memes_length_five(){
+        let num = 5;
+        let my_memes = Memes::multiple(num);
+        let memes = my_memes.into_iter().nth(0);
+        match memes{
+            Some(val) => assert_eq!(val.length(), num as usize, "Expected length to be {} but got {}", num, val.length()),
+            None => assert_eq!(0, num, "Could not get a Memes struct")
+        }
+    }
+
     #[tokio::test]
     async fn test_parse_memes_json_error(){
         use http::response::Builder;
@@ -158,4 +172,4 @@ mod tests{
 
         assert_eq!(1, parsed_json.length())
     }
-    }
+}
