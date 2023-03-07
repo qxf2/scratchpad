@@ -107,7 +107,8 @@ mod tests{
              }
         }
 
-        fn multiple(num: u32) -> Vec<GetMemes>{
+        // Using _num to prevent warning
+        fn multiple(_num: u32) -> Vec<GetMemes>{
             return vec!(GetMemes::single())
         }
     }
