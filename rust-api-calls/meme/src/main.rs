@@ -3,7 +3,7 @@ Fetch the top 100 memes from https://imgflip.com/
 Print out the id and the name of the meme
 URL: https://api.imgflip.com/get_memes
 */
-use meme::imgflip;
+use meme::meme_sources::imgflip::imgflip;
 
 #[tokio::main]
 async fn main() {
