@@ -109,11 +109,7 @@ fn read_csv_details(
         csv_data.push(row);        
     }  
 
-    if flag_ignore_error && error_occurred {    
-        Ok(csv_data)
-    } else {
-        Ok(csv_data)
-    }
+    Ok(csv_data)
 }
 
 #[cfg(test)]
@@ -150,6 +146,7 @@ fn test_csv_row_count() {
 fn test_csv_row_null_values() {
     let csv_path = "cyborg.csv";
     let result = read_csv_details(csv_path, false);
+    dbg!(&result);
     assert!(result.is_ok(), "Failed to read CSV file");
 
     let csv_data = dbg!(result.unwrap());
@@ -237,5 +234,6 @@ fn test_read_large_csv_file() {
 }
 
 fn main() {
-    println!("The program performs open and read operation")
+    let result = read_csv_details("invalid_file.csv", true);
+    dbg!(result);
 }
