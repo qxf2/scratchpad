@@ -1,12 +1,11 @@
 use csv::ReaderBuilder;
-use std::fs::File;
 
 fn read_csv_details(
     csv_path: &str,
     flag_ignore_error: bool,
     is_header_present: bool,
 ) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
-    
+
     let reader_result = ReaderBuilder::new().has_headers(is_header_present).from_path(csv_path);
     let reader = match reader_result {
         Ok(reader) => reader,
