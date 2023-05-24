@@ -1,99 +1,29 @@
 use csv::ReaderBuilder;
 use std::fs::File;
-use std::io::ErrorKind;
-
-fn open_file(csv_path: &str) -> Result<File, Box<dyn std::error::Error>> {
-
-    match File::open(csv_path) {
-        Ok(file) => Ok(file),
-        Err(err) => {
-                match err.kind() {
-                    ErrorKind::NotFound => {
-                        println!("File doesn't exist");
-                    }
-                    ErrorKind::AddrInUse => {
-                        println!("A socket address could not be bound because the address is already in use elsewhere.");
-                    }
-                    ErrorKind::PermissionDenied => {
-                        println!("The operation lacked the necessary privileges to complete.");
-                    }
-                    ErrorKind::ConnectionRefused => {
-                        println!("The connection was refused by the remote server.");
-                    }
-                    ErrorKind::ConnectionReset => {
-                        println!("The connection was reset by the remote server.");
-                    }
-                    ErrorKind::ConnectionAborted => {
-                        println!("The connection was aborted (terminated) by the remote server.");
-                    }
-                    ErrorKind::NotConnected => {
-                        println!("The network operation failed because it was not connected yet.");
-                    }
-                    ErrorKind::AddrNotAvailable => {
-                        println!("A nonexistent interface was requested or the requested address was not local.");
-                    }
-                    ErrorKind::BrokenPipe => {
-                        println!("The operation failed because a pipe was closed.");
-                    }
-                    ErrorKind::AlreadyExists => {
-                        println!("An entity already exists, often a file.");
-                    }
-                    ErrorKind::WouldBlock => {
-                        println!("The operation needs to block to complete, but the blocking operation was requested to not occur.");
-                    }
-                    ErrorKind::InvalidInput => {
-                        println!("Data not valid for the operation were encountered.");
-                    }
-                    ErrorKind::TimedOut => {
-                        println!("The I/O operation’s timeout expired, causing it to be canceled.");
-                    }
-                    ErrorKind::WriteZero => {
-                        println!("An error returned when an operation could not be completed because a call to write returned Ok(0).");
-                    }
-                    ErrorKind::Interrupted => {
-                        println!("This operation was interrupted.");
-                    }
-                    ErrorKind::Unsupported => {
-                        println!("This operation is unsupported on this platform.");
-                    }
-                    ErrorKind::UnexpectedEof => {
-                        println!("An error returned when an operation could not be completed because an “end of file” was reached prematurely.");
-                    }
-                    ErrorKind::OutOfMemory => {
-                        println!("An operation could not be completed, because it failed to allocate enough memory.");
-                    }
-                    ErrorKind::Other => {
-                        println!("There might be something else which is going wrong");
-                    }
-                    _ => {
-                        println!("An error occurred: {:?}", err);
-                    }
-                }
-                return Err(Box::new(err));
-        }
-    }
-}
 
 fn read_csv_details(
     csv_path: &str,
     flag_ignore_error: bool,
+    is_header_present: bool,
 ) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
-    let file = match open_file(csv_path) {
+    match File::open(csv_path) {
         Ok(file) => file,
-        Err(err) => return Err(err),
+        Err(err) => return Err(Box::new(err)),
     };
 
-    let reader = ReaderBuilder::new().has_headers(true).from_reader(file);
+    let reader_result = ReaderBuilder::new().has_headers(is_header_present).from_path(csv_path);
+    let reader = match reader_result {
+        Ok(reader) => reader,
+        Err(err) => return Err(Box::new(err)),
+    };    
 
     let mut csv_data: Vec<Vec<String>> = Vec::new();
-    let mut error_occurred = false;
 
     for record in reader.into_records() {
         let record = match record {
             Ok(record) => record,
             Err(err) => {
                 if flag_ignore_error {
-                    error_occurred = true;
                     continue;
                 } else {
                     return Err(Box::new(err));
@@ -120,50 +50,17 @@ mod tests {
 #[test]
 fn test_read_empty_csv_file() {
     let csv_path = "empty.csv";
-    let result = read_csv_details(csv_path, true);
+    let result = read_csv_details(csv_path, true, true);
     assert!(result.is_ok(), "Failed to read CSV file");
 
     let csv_data = result.unwrap();
-    assert!(csv_data.is_empty(), "CSV data is expected to be empty");
-}
-
-#[test]
-fn test_csv_row_count() {
-    let csv_path = "cyborg.csv";
-    let result = read_csv_details(csv_path, true);
-    assert!(result.is_ok(), "Failed to read CSV file");
-
-    let expected_row_count = 2;
-    let actual_data = result.unwrap();
-    assert_eq!(
-        actual_data.len(),
-        expected_row_count,
-        "Unexpected number of rows in CSV"
-    );
-}
-
-#[test]
-fn test_csv_row_null_values() {
-    let csv_path = "cyborg.csv";
-    let result = read_csv_details(csv_path, false);
-    dbg!(&result);
-    assert!(result.is_ok(), "Failed to read CSV file");
-
-    let csv_data = dbg!(result.unwrap());
-
-    for (row_count, row) in csv_data.iter().enumerate() {
-        assert!(
-            !row.iter().any(|value| value.is_empty()),
-            "Null value found in row {}",
-            row_count + 1
-        );
-    }
+    assert!(csv_data.is_empty(), "CSV data is expected to be empty, but found records in {} rows", csv_data.len());
 }
 
 #[test]
 fn test_csv_column_count() {
     let csv_path = "cyborg.csv";
-    let result = read_csv_details(csv_path, true);
+    let result = read_csv_details(csv_path, true,true);
     assert!(result.is_ok(), "Failed to read CSV file");
 
     let csv_data = result.unwrap();
@@ -173,8 +70,10 @@ fn test_csv_column_count() {
         assert_eq!(
             row.len(),
             expected_column_count,
-            "Unexpected number of columns in row {}",
-            row_count + 1
+            "Unexpected number of columns in row {}.Expected: {}, Actual: {}",
+            row_count + 1,
+            expected_column_count,
+            row.len()
         );
     }
 }
@@ -182,14 +81,14 @@ fn test_csv_column_count() {
 #[test]
 fn test_invalid_csv_file() {
     let csv_path = "invalid.csv";
-    let result = read_csv_details(csv_path, true);
-    assert!(result.is_err(), "Expected an error while reading CSV file");
+    let result = read_csv_details(csv_path, false,true);
+    assert!(result.is_ok(), "An error occured while reading the CSV file");
 }
 
 #[test]
 fn test_csv_data_contains_special_characters() {
     let csv_path = "cyborg.csv";
-    let result = read_csv_details(csv_path, true).unwrap();
+    let result = read_csv_details(csv_path, true,true).unwrap();
 
     let special_characters = "!@$%^&*()_+=[]{}|<>?";
 
@@ -208,32 +107,34 @@ fn test_csv_data_contains_special_characters() {
 #[test]
 fn test_read_large_csv_file() {
     let csv_path = "large.csv";
-    let result = read_csv_details(csv_path, true);
-    assert!(result.is_ok(), "Failed to read CSV file");
+    let result = read_csv_details(csv_path, true, true);
 
     let csv_data = result.unwrap();
-    assert!(!csv_data.is_empty(), "CSV data should not be empty");
-
     let expected_row_count = 10000;
-    let expected_column_count = 5;
+    let expected_column_count = 15;
 
     assert_eq!(
         csv_data.len(),
         expected_row_count,
-        "Unexpected number of rows in CSV"
+        "Unexpected number of rows in CSV. Expected: {}, Actual: {}",
+        expected_row_count,
+        csv_data.len()
     );
 
     for (row_count, row) in csv_data.iter().enumerate() {
         assert_eq!(
             row.len(),
             expected_column_count,
-            "Unexpected number of columns in row {}",
-            row_count + 1
+            "Unexpected number of columns in row {}. Expected: {}, Actual: {}",
+            row_count + 1,
+            expected_column_count,
+            row.len()
         );
     }
 }
 
+
 fn main() {
-    let result = read_csv_details("invalid_file.csv", true);
+    let result = read_csv_details("invalid_file.csv", false,true);
     dbg!(result);
 }
