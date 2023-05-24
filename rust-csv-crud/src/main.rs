@@ -131,5 +131,5 @@ fn test_read_large_csv_file() {
 
 fn main() {
     let result = read_csv_details("invalid_file.csv", false,true);
-    dbg!(result);
+    println!("{:?}",result);
 }
