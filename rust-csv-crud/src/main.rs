@@ -6,11 +6,7 @@ fn read_csv_details(
     flag_ignore_error: bool,
     is_header_present: bool,
 ) -> Result<Vec<Vec<String>>, Box<dyn std::error::Error>> {
-    match File::open(csv_path) {
-        Ok(file) => file,
-        Err(err) => return Err(Box::new(err)),
-    };
-
+    
     let reader_result = ReaderBuilder::new().has_headers(is_header_present).from_path(csv_path);
     let reader = match reader_result {
         Ok(reader) => reader,
