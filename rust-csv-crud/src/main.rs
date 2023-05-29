@@ -1,4 +1,72 @@
-use csv::ReaderBuilder;
+use csv::{ReaderBuilder,Writer};
+use chrono::NaiveDate;
+use std::error::Error;
+
+struct Cyborg {
+    name: String,
+    model: String,
+    organization: String,
+    abilities: String,
+    creation_date: Option<NaiveDate>
+}
+
+fn get_cyborgs() -> Vec<Cyborg> {
+    vec![
+        Cyborg {
+            name: "T-800".to_string(),
+            model: "4TU".to_string(),
+            organization: "Skynet".to_string(),
+            abilities: "facial identification".to_string(),
+            creation_date: NaiveDate::from_ymd_opt(2015, 12, 7),
+        },
+        Cyborg {
+            name: "C-3PO".to_string(),
+            model: "3PO".to_string(),
+            organization: "Skywalker".to_string(),
+            abilities: "etiquette".to_string(),
+            creation_date: NaiveDate::from_ymd_opt(2015, 12, 12),
+        },
+        Cyborg {
+            name: "U-2IO".to_string(),
+            model: "2IO".to_string(),
+            organization: "Skynet".to_string(),
+            abilities: "manner".to_string(),
+            creation_date: NaiveDate::from_ymd_opt(2014, 4, 3),
+        },        
+
+    ]
+}
+
+fn write_csv_details(csv_path: &str) -> Result<(), Box<dyn Error>> {
+
+    let cyborgs = get_cyborgs();
+
+    let writer_result = Writer::from_path(csv_path);
+    let mut writer = match writer_result {
+        Ok(writer) => writer,
+        Err(err) => return Err(Box::new(err)),
+    };
+
+    //writer.write_record(&["name", "model", "organization", "abilities", "creation_date"]);
+
+    for cyborg in cyborgs {
+       let record_result = match writer.write_record(&[
+            cyborg.name,
+            cyborg.model,
+            cyborg.organization,
+            cyborg.abilities,
+            cyborg.creation_date.map(|date| date.to_string()).unwrap_or_default(),
+        ]) {
+            Ok(record_result) => record_result,
+            Err(err) => return Err(Box::new(err)),            
+        };
+    }
+
+    //writer.flush();
+
+    Ok(())
+
+}
 
 fn read_csv_details(
     csv_path: &str,
@@ -130,6 +198,6 @@ fn test_read_large_csv_file() {
 
 
 fn main() {
-    let result = read_csv_details("invalid_file.csv", false,true);
-    println!("{:?}",result);
+    let result = write_csv_details("write_file.csv");
+    //dbg!(&result);
 }
