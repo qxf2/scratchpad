@@ -31,7 +31,7 @@ fn get_cyborgs() -> Vec<Cyborg> {
             model: "2IO".to_string(),
             organization: "Skynet".to_string(),
             abilities: "manner".to_string(),
-            creation_date: NaiveDate::from_ymd_opt(2014, 4, 3),
+            creation_date: NaiveDate::from_ymd_opt(2015, 4, 3),
         },        
 
     ]
@@ -47,7 +47,7 @@ fn write_csv_details(csv_path: &str) -> Result<(), Box<dyn Error>> {
         Err(err) => return Err(Box::new(err)),
     };
 
-    //writer.write_record(&["name", "model", "organization", "abilities", "creation_date"]);
+    writer.write_record(&["name", "model", "organization", "abilities", "creation_date"]);
 
     for cyborg in cyborgs {
        let record_result = match writer.write_record(&[
@@ -55,14 +55,12 @@ fn write_csv_details(csv_path: &str) -> Result<(), Box<dyn Error>> {
             cyborg.model,
             cyborg.organization,
             cyborg.abilities,
-            cyborg.creation_date.map(|date| date.to_string()).unwrap_or_default(),
+            cyborg.creation_date.map(|date| date.to_string()).unwrap_or_else(|| "1500, 4, 5".to_string()),
         ]) {
             Ok(record_result) => record_result,
             Err(err) => return Err(Box::new(err)),            
         };
     }
-
-    //writer.flush();
 
     Ok(())
 
