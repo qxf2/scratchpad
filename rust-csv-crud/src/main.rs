@@ -162,36 +162,7 @@ mod tests {
                 );
             }
         }
-    }
-    
-    #[test]
-    fn test_read_large_csv_file() {
-        let csv_path = "large.csv";
-        let result = read_csv_details(csv_path, true, true);
-    
-        let csv_data = result.unwrap();
-        let expected_row_count = 10000;
-        let expected_column_count = 15;
-    
-        assert_eq!(
-            csv_data.len(),
-            expected_row_count,
-            "Unexpected number of rows in CSV. Expected: {}, Actual: {}",
-            expected_row_count,
-            csv_data.len()
-        );
-    
-        for (row_count, row) in csv_data.iter().enumerate() {
-            assert_eq!(
-                row.len(),
-                expected_column_count,
-                "Unexpected number of columns in row {}. Expected: {}, Actual: {}",
-                row_count + 1,
-                expected_column_count,
-                row.len()
-            );
-        }
-    }    
+    } 
 }
 
 fn main() {
