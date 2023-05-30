@@ -197,5 +197,4 @@ fn test_read_large_csv_file() {
 
 fn main() {
     let result = write_csv_details("write_file.csv");
-    //dbg!(&result);
 }
