@@ -55,7 +55,7 @@ fn write_csv_details(csv_path: &str) -> Result<(), Box<dyn Error>> {
             cyborg.model,
             cyborg.organization,
             cyborg.abilities,
-            cyborg.creation_date.map(|date| date.to_string()).unwrap_or_else(|| "1800-05-04".to_string()),
+            cyborg.creation_date.map(|date| date.to_string()).unwrap_or_else(||"1796-04-02".to_string()),
         ]) {
             Ok(record_result) => record_result,
             Err(err) => return Err(Box::new(err)),            
